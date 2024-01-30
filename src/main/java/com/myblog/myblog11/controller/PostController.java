@@ -34,9 +34,17 @@ public class PostController {
     }
 
     //    http://localhost:8080/api/posts
+    //    http://localhost:8080/api/posts?pageNo=0&pageSize=3
+    //    http://localhost:8080/api/posts?pageNo=0&pageSize=3&sortBy=title
+    //    http://localhost:8080/api/posts?pageNo=0&pageSize=3&sortBy=title&sortDir=ase/des
     @GetMapping
-    public List<PostDto> getAllPosts(){
-       List<PostDto> postDtos= postService.getAllPosts();
+    public List<PostDto> getAllPosts(
+            @RequestParam(name="pageNo",required = false,defaultValue = "0") int pageNo,
+            @RequestParam(name="pageSize",required = false,defaultValue = "3") int pageSize,
+            @RequestParam(name="sortBy",required = false,defaultValue = "id") String sortBy,
+            @RequestParam(name="sortDir",required = false,defaultValue = "id") String sortDir
+    ){
+       List<PostDto> postDtos= postService.getAllPosts(pageNo,pageSize,sortBy,sortDir);
        return postDtos;
 
     }
